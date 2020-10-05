@@ -2,7 +2,7 @@
 
 namespace Virtue\Database\PDO;
 
-class Connection implements ExecutesStatements, ControlsTransactions
+class Connection implements ExecutesStatements, ControlsTransactions, SupportsSequence
 {
     /** @var Server */
     private $server;
@@ -112,5 +112,10 @@ class Connection implements ExecutesStatements, ControlsTransactions
         }
 
         return false;
+    }
+
+    public function lastInsertedId($name = null): int
+    {
+        return $this->pdo->lastInsertId($name);
     }
 }
