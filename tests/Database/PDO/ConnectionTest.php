@@ -89,4 +89,18 @@ class ConnectionTest extends MockeryTestCase
         $this->assertEquals(true, $connection->inTransaction());
         $this->assertEquals(true, $connection->rollBack());
     }
+
+    public function testReturnLastInsertedId()
+    {
+        $stmt = \Mockery::mock(\PDOStatement::class);
+        $pdo = \Mockery::mock(\PDO::class);
+        $pdo->shouldReceive('query')->with($sql = 'SQL')->andReturn($stmt)->once();
+        $pdo->shouldReceive('lastInsertId')->with(null)->andReturn($expectedLastId = 256)->once();
+        $server = \Mockery::mock(Server::class);
+        $server->shouldReceive('connect')->andReturn($pdo)->once();
+
+        $connection = new Connection($server);
+        $connection->query($sql);
+        $this->assertSame($expectedLastId, $connection->lastInsertedId());
+    }
 }

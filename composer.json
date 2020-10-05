@@ -12,10 +12,11 @@
     "require": {
         "php": "^7.1",
         "ext-pdo": "*",
+        "ext-mbstring": "*",
         "webmozart/assert": "^1.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "~7.0",
+        "phpunit/phpunit": "~9.0",
         "mockery/mockery": "^1.2",
         "phpstan/phpstan": "^0.12.0"
     },
